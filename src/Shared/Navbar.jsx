@@ -56,7 +56,7 @@ const Navbar = () => {
       </div>
       
        
-      <Link to='/'><button className="btn w-48 md:w-auto btn-ghost font-bold normal-case text-[#61B15A] text-xl md:text-3xl"> <img className="w-12" src="https://i.ibb.co/jWcR9LR/10764276.png" alt="" />
+      <Link to='/'><button className="btn w-52 md:w-auto btn-ghost font-bold normal-case text-[#61B15A] text-xl md:text-3xl"> <img className="w-8 md:w-12" src="https://i.ibb.co/jWcR9LR/10764276.png" alt="" />
         Survey Snap</button></Link>
     </div>
     <div className="navbar-center hidden lg:flex">

@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 
 const HowItWorks = () => {
     return (
-        <div>
-             <div className="mt-32 ">
-        <div className="hero-content w-full flex-col lg:flex-row gap-8 justify-start">
-          <div className='lg:w-1/2'>
-          <img src="https://i.ibb.co/SKphgPJ/Customer-Survey-color-800px.png" className=" rounded-lg shadow-2xl" />
+       
+            
+        <div className="mt-32 hero-content w-full flex-col lg:flex-row gap-8 justify-start">
+          <div className='lg:w-1/2 bg-[#0066b2]'>
+          <img src="https://i.ibb.co/SKphgPJ/Customer-Survey-color-800px.png" className=" rounded-lg " />
           </div>
           <div>
             <h1 className="text-6xl text-[#61B15A] font-bold">How It Works</h1>
@@ -30,8 +30,8 @@ const HowItWorks = () => {
           </div>
         </div>
       </div>
-        </div>
-        </div>
+        
+       
     );
 };
 
