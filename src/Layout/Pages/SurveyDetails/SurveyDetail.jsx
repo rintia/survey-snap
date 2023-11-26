@@ -13,10 +13,10 @@ const SurveyDetail = () => {
     <button className="text-red-500 btn btn-outline">Report<MdOutlineReport className="text-2xl"></MdOutlineReport></button>
     </div>
             <div className='text-center  space-y-4'>
-           <h1 className='text-4xl text-[#61B15A]'>{title}</h1>
+           <h1 className='text-xl md:text-2xl lg:text-4xl text-[#61B15A]'>{title}</h1>
            <p><span className='font-semibold'>Category: </span>{category}</p>
            <p className='text-sm'>{description}</p>
-           <h1 className='text-5xl '>Q: {question}</h1>
+           <h1 className='text-2xl md:text-3xl lg:text-5xl '>Q: {question}</h1>
            </div>
            <div className='space-y-6 mt-12 flex flex-col justify-center text-white'>
            <button className="btn w-full h-16 text-3xl text-white hover:text-black bg-[#61B15A]">YES</button>

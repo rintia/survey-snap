@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { AuthContext } from '../Providers/AuthProvider';
 
 const Navbar = () => {
-    // const { user, logOut } = useContext(AuthContext)
-    // console.log(user);
+    const { user, logOut } = useContext(AuthContext)
+    console.log(user);
       const navLinks = <>
        <li > <NavLink style={({ isActive }) => ({
               color: isActive ? "#4F4A45" : 'black',
@@ -37,11 +38,11 @@ const Navbar = () => {
               background: isActive ? 'transparent' : 'transparent'
               })} to='/bidRequests'>Bid Requests</NavLink></li>
       </>
-    //   const handleLogOut =() => {
-    //     logOut()
-    //     .then(() => console.log('sign out successfully'))
-    //     .catch(error => console.log(error))
-    //  }
+      const handleLogOut =() => {
+        logOut()
+        .then(() => console.log('sign out successfully'))
+        .catch(error => console.log(error))
+     }
       return (
           <div className="navbar bg-white
            sticky top-0 z-50 bg-light">
@@ -67,7 +68,7 @@ const Navbar = () => {
     <div className="navbar-end flex gap-0 md:gap-4">
   
        
-      {/* { user?.email ? <div className="dropdown dropdown-end">
+      { user?.email ? <div className="dropdown dropdown-end">
                               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                                   <div className="w-10 rounded-full">
                                       <img src={user.photoURL} alt={user.displayName} />
@@ -91,10 +92,10 @@ const Navbar = () => {
        <div className="md:flex ">
         <NavLink style={({ isActive }) => ({
               textDecoration : isActive ? 'underline' : 'none'
-              })} to='/login'><h1 className="text-[#ED7D31] font-semibold mr-4" href="">Login/Register</h1></NavLink>
+              })} to='/login'><h1 className="text-[#61B15A] font-semibold mr-4" href="">Login/Register</h1></NavLink>
         
        </div>
-      } */}
+      }
      
       
     </div>
