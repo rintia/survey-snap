@@ -8,7 +8,7 @@ const Banner = () => {
           <div className="max-w-md ">
             <h1 className="mb-5 text-[#61B15A] text-7xl font-bold">Find All The Surveys In One Place</h1>
             <p className="mb-5">Participate on different surveys all around the world</p>
-            <button className="btn btn-outline text-[#61B15A]">Explore</button>
+            <button className="btn btn-outline text-[#61B15A]">Explore Now</button>
           </div>
         </div>
       </div>
