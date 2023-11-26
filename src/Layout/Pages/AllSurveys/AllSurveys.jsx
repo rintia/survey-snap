@@ -32,8 +32,8 @@ const AllSurveys = () => {
         //   case 'TotalVote':
         //     handleTotalVoteSelect();
         //     break;
-          default:
-            setSelectedFilter('Filter By')
+        //   default:
+           
             // Handle default case or perform no action
         }
       };
@@ -53,7 +53,8 @@ const AllSurveys = () => {
     return (
         <div>
            
-           <select className=" mt-8 select select-success  max-w-xs"
+          <div className='flex justify-end'>
+          <select className=" mt-8 select select-success  max-w-xs"
             value={selectedFilter}
             onChange={handleFilterChange}>
                 <option selected>Filter By</option>
@@ -61,6 +62,7 @@ const AllSurveys = () => {
                 <option>Category</option>
                 <option>Total Vote</option>
             </select>
+          </div>
            
             <div className='my-12 px-4 lg:px-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                 {
