@@ -4,6 +4,7 @@ import { MdOutlineReport } from "react-icons/md";
 import { Link, useLoaderData } from 'react-router-dom';
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { AuthContext } from "../../../Providers/AuthProvider";
+import Statistics from "./Statistics";
 
 const SurveyDetail = () => {
     const [totalVoted, setTotalVoted] = useState(0);
@@ -12,11 +13,11 @@ const SurveyDetail = () => {
     const [yesVoted, setYesVoted] = useState(0);
     const [noVoted, setNoVoted] = useState(0);
     const [voters, setVoters] = useState([]);
-    const surveyDetails = useLoaderData();
+    const survey = useLoaderData();
     const axiosPublic = useAxiosPublic()
     
     const{user} = useContext(AuthContext);
-    const { _id, title, category, description, question } = surveyDetails;
+    const { _id, title, category, description, question } = survey;
     console.log(voters);
     // console.log(voters.includes(user?.email));
    
@@ -153,6 +154,14 @@ const SurveyDetail = () => {
                     </div>
                 </div>
                 <h1>Total Voted:{totalVoted}</h1>
+            </div>
+            <div className="mt-12">
+                <h1 className="text-center text-2xl font-semibold">Result</h1>
+                {
+                    voters.includes(user?.email) ? 
+                    <Statistics survey={survey}></Statistics>
+                    :<></>
+                }
             </div>
         </div>
     );
