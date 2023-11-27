@@ -11,12 +11,12 @@ const SurveyDetail = () => {
     const [dislikes, setDislikes] = useState(0);
     const [yesVoted, setYesVoted] = useState(0);
     const [noVoted, setNoVoted] = useState(0);
-    const survey = useLoaderData();
+    const surveyDetails = useLoaderData();
     const axiosPublic = useAxiosPublic()
     
-    const { _id, title, category, description, question } = survey;
+    const { _id, title, category, description, question } = surveyDetails;
     
-    
+    const[survey, setSurvey] = useState(surveyDetails);
    
     
     useEffect(() => {
@@ -55,15 +55,54 @@ const SurveyDetail = () => {
             console.error('Error updating survey data:', error.message);
         }
     }
-    // const handleNoVote = () => {
+    const handleNoVote = async () => {
+        console.log('nooo');
+        setTotalVoted(totalVoted + 1);
+        setNoVoted(noVoted + 1);
+        console.log(totalVoted);
+        try {
+            await axiosPublic.patch(`surveys/${_id}`, {
+                totalVoted: totalVoted + 1,
+                yesVoted: yesVoted ,
+                noVoted: noVoted + 1,
+                likes: likes,
+                dislikes: dislikes,
+            });
+        } catch (error) {
+            console.error('Error updating survey data:', error.message);
+        }
+    }
+    const handleLikes = async() => {
+        console.log('like');
+        setLikes(likes + 1);
+        try {
+            await axiosPublic.patch(`surveys/${_id}`, {
+                totalVoted: totalVoted,
+                yesVoted: yesVoted ,
+                noVoted: noVoted ,
+                likes: likes + 1,
+                dislikes: dislikes,
+            });
+        } catch (error) {
+            console.error('Error updating survey data:', error.message);
+        }
+    }
+    const handleDislikes = async () => {
+        console.log('like');
+        setDislikes(dislikes + 1);
+        try {
+            await axiosPublic.patch(`surveys/${_id}`, {
+                totalVoted: totalVoted,
+                yesVoted: yesVoted ,
+                noVoted: noVoted ,
+                likes: likes,
+                dislikes: dislikes + 1,
+            });
+        } catch (error) {
+            console.error('Error updating survey data:', error.message);
+        }
       
-    // }
-    // const handleLikes = () => {
-      
-    // }
-    // const handleDislikes = () => {
-      
-    // }
+    }
 
     return (
         <div>
@@ -80,24 +119,25 @@ const SurveyDetail = () => {
                 </div>
                 <div className='space-y-6 mt-12 flex flex-col justify-center text-white'>
                     <button onClick={handleYesVote} className="btn w-full h-16 text-3xl text-white hover:text-black bg-[#61B15A]">YES</button>
-                    <button  className="btn w-full text-3xl h-16 text-white hover:text-black bg-[#0066b2]">NO</button>
+                    <button onClick={handleNoVote}  className="btn w-full text-3xl h-16 text-white hover:text-black bg-[#0066b2]">NO</button>
                 </div>
             </div>
             <div className='mt-4 flex justify-between'>
                 <div className='flex gap-6'>
                     <div className="flex gap-2">
-                        <button><AiOutlineLike className="text-2xl"></AiOutlineLike></button>
-                        <h1 >0 likes</h1>
+                        <button onClick={handleLikes}><AiOutlineLike className="text-2xl"></AiOutlineLike></button>
+                        <h1 >{likes} likes</h1>
                     </div>
                     <div className="flex gap-2">
-                        <button ><AiOutlineDislike className="text-2xl"></AiOutlineDislike></button>
-                        <h1>0 dislikes</h1>
+                        <button onClick={handleDislikes} ><AiOutlineDislike className="text-2xl"></AiOutlineDislike></button>
+                        <h1>{dislikes} dislikes</h1>
                     </div>
                 </div>
-                <h1>Total Voted:{survey.totalVoted}</h1>
+                <h1>Total Voted:{totalVoted}</h1>
             </div>
         </div>
     );
 };
+
 
 export default SurveyDetail;

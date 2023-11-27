@@ -12,7 +12,7 @@ const SurveyCard = ({survey}) => {
    <h2 className="card-title text-[#61B15A]  text-center">{title}</h2>
    <p ><span className='font-semibold'>Category:</span> {category}</p>
    <p>{description}</p>
-   <p><span className='font-semibold'>Total Voted:</span> 0</p>
+   <p><span className='font-semibold'>Total Voted:</span> {survey.totalVoted || 0}</p>
    <div className="card-actions justify-end">
     
    </div>
