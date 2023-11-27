@@ -5,6 +5,7 @@ import { updateProfile } from "firebase/auth";
 import { FcGoogle } from 'react-icons/fc';
 import { AuthContext } from "../../../Providers/AuthProvider";
 
+
 const Register = () => {
     const {createUser, signInWithGoogle} = useContext(AuthContext);
     const navigate = useNavigate();
@@ -46,11 +47,12 @@ const Register = () => {
                 displayName: name,
                 photoURL: photo
               })
-              .then(() => location.reload(),
+              .then(() =>
+              location.reload(),
               navigate('/'),
               toast.success('Registered Successfully')
               
-              )
+          )
               .catch(error => console.error(error))
             
         })
