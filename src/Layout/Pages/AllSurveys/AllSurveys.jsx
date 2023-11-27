@@ -29,9 +29,9 @@ const AllSurveys = () => {
           case 'Category':
             handleCategorySelect();
             break;
-        //   case 'TotalVote':
-        //     handleTotalVoteSelect();
-        //     break;
+          case 'Total Vote':
+            handleTotalVoteSelect();
+            break;
         //   default:
            
             // Handle default case or perform no action
@@ -47,6 +47,14 @@ const AllSurveys = () => {
    const  handleCategorySelect = () =>{
        const sorted = surveys.sort((a, b) => {
         return a.category.localeCompare(b.category);
+    });
+    surveys =sorted
+   }
+   const  handleTotalVoteSelect = () =>{
+    const sorted = surveys.sort((a, b) => {
+    const totalVotedA = a?.totalVoted || 0; 
+    const totalVotedB = b?.totalVoted || 0; 
+    return totalVotedB - totalVotedA;
     });
     surveys =sorted
    }

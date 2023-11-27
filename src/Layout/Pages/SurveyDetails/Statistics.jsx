@@ -1,8 +1,7 @@
 import { Cell, Legend, Pie, PieChart } from "recharts";
 
 
-const Statistics = ({survey}) => {
-    const{yesVoted, totalVoted} =survey;
+const Statistics = ({totalVoted, yesVoted}) => {
     const noVoted = totalVoted - yesVoted;
     console.log(yesVoted);
     console.log(noVoted);

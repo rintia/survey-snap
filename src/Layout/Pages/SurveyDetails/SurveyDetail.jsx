@@ -68,6 +68,7 @@ const SurveyDetail = () => {
         console.log('nooo');
         setTotalVoted(totalVoted + 1);
         setNoVoted(noVoted + 1);
+        setVoters([...voters, user?.email]);
         console.log(totalVoted);
         try {
             await axiosPublic.patch(`surveys/${_id}`, {
@@ -76,6 +77,7 @@ const SurveyDetail = () => {
                 noVoted: noVoted + 1,
                 likes: likes,
                 dislikes: dislikes,
+                voters : [...voters, user.email],
             });
         } catch (error) {
             console.error('Error updating survey data:', error.message);
@@ -156,10 +158,13 @@ const SurveyDetail = () => {
                 <h1>Total Voted:{totalVoted}</h1>
             </div>
             <div className="mt-12">
-                <h1 className="text-center text-2xl font-semibold">Result</h1>
+              
                 {
                     voters.includes(user?.email) ? 
-                    <Statistics survey={survey}></Statistics>
+                    <div>
+                        <h1 className="text-center text-2xl font-semibold">Result</h1>
+                    <Statistics totalVoted={totalVoted} yesVoted={yesVoted}></Statistics>
+                    </div>
                     :<></>
                 }
             </div>
