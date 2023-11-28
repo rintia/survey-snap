@@ -7,6 +7,8 @@ import Login from "../Login/Login";
 import Register from "../Layout/Pages/Register/Register";
 import Dashboard from "../Layout/Dashboard";
 import AddSurvey from "../Layout/Pages/Dashboard/AddSurvey";
+import UpdateSurvey from "../Layout/Pages/Dashboard/UpdateSurvey";
+import UpdateForm from "../Layout/Pages/Dashboard/UpdateForm";
 
 const router = createBrowserRouter([
     {
@@ -43,6 +45,15 @@ const router = createBrowserRouter([
         {
           path: '/dashboard/addSurvey',
           element: <AddSurvey></AddSurvey>
+        },
+        {
+          path: '/dashboard/updateSurvey',
+          element: <UpdateSurvey></UpdateSurvey>
+        },
+        {
+          path: '/dashboard/updateSurvey/form/:id',
+          element: <UpdateForm></UpdateForm>,
+          loader: ({params}) => fetch(`http://localhost:5000/surveys/${params.id}`)
         }
       ]
     }
