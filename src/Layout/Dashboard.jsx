@@ -1,6 +1,7 @@
 
 import { NavLink, Outlet } from "react-router-dom";
 import { MdOutlineAddToPhotos,  MdOutlineSystemUpdateAlt } from "react-icons/md";
+import { FaUsers } from "react-icons/fa";
 
 const Dashboard = () => {
     return (
@@ -17,6 +18,17 @@ const Dashboard = () => {
                         <NavLink to='/dashboard/updateSurvey'>
                             <MdOutlineSystemUpdateAlt></MdOutlineSystemUpdateAlt>
                             Update Survey
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/dashboard/allUsers'>
+                            <FaUsers></FaUsers>
+                            All Users
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/dashboard/responses'>
+                            Responses
                         </NavLink>
                     </li>
                 </ul>

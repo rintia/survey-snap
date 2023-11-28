@@ -9,6 +9,8 @@ import Dashboard from "../Layout/Dashboard";
 import AddSurvey from "../Layout/Pages/Dashboard/AddSurvey";
 import UpdateSurvey from "../Layout/Pages/Dashboard/UpdateSurvey";
 import UpdateForm from "../Layout/Pages/Dashboard/UpdateForm";
+import AllUsers from "../Layout/Pages/Dashboard/Admin/AllUsers";
+import Responses from "../Layout/Pages/Dashboard/Admin/Responses";
 
 const router = createBrowserRouter([
     {
@@ -54,6 +56,14 @@ const router = createBrowserRouter([
           path: '/dashboard/updateSurvey/form/:id',
           element: <UpdateForm></UpdateForm>,
           loader: ({params}) => fetch(`http://localhost:5000/surveys/${params.id}`)
+        },
+        {
+          path: '/dashboard/allUsers',
+          element: <AllUsers></AllUsers>
+        },
+        {
+          path: '/dashboard/responses',
+          element: <Responses></Responses>
         }
       ]
     }
