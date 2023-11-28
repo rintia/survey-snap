@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 const useAdmin = () => {
     const {user} = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
-    const { data: users = [], refetch, status } = useQuery({
+    const { data: users = [], isPending: isAdminLoading } = useQuery({
         queryKey: ['users', user?.email],
         queryFn: async () => {
             const res = await axiosPublic.get('/users');
@@ -15,7 +15,7 @@ const useAdmin = () => {
     });
     const currentUser = users.find((data) => data.email === user?.email);
     const isAdmin = currentUser && currentUser.role === 'admin'
-    return  {isAdmin, loading: status === 'loading', error: status === 'error' }
+    return  {isAdmin, isAdminLoading }
 };
 
 export default useAdmin;

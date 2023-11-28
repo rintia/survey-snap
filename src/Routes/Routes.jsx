@@ -11,6 +11,9 @@ import UpdateSurvey from "../Layout/Pages/Dashboard/UpdateSurvey";
 import UpdateForm from "../Layout/Pages/Dashboard/UpdateForm";
 import AllUsers from "../Layout/Pages/Dashboard/Admin/AllUsers";
 import Responses from "../Layout/Pages/Dashboard/Admin/Responses";
+import AdminRoute from "./AdminRoute";
+import SurveyorRoute from "./SurveyorRoute";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -42,15 +45,15 @@ const router = createBrowserRouter([
     },
     {
       path: '/dashboard',
-      element: <Dashboard></Dashboard>,
+      element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
       children: [
         {
           path: '/dashboard/addSurvey',
-          element: <AddSurvey></AddSurvey>
+          element: <SurveyorRoute><AddSurvey></AddSurvey></SurveyorRoute>
         },
         {
           path: '/dashboard/updateSurvey',
-          element: <UpdateSurvey></UpdateSurvey>
+          element: <SurveyorRoute><UpdateSurvey></UpdateSurvey></SurveyorRoute>
         },
         {
           path: '/dashboard/updateSurvey/form/:id',
@@ -59,7 +62,7 @@ const router = createBrowserRouter([
         },
         {
           path: '/dashboard/allUsers',
-          element: <AllUsers></AllUsers>
+          element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
         },
         {
           path: '/dashboard/responses',

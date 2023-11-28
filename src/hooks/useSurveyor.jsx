@@ -7,7 +7,7 @@ import { useContext } from "react";
 const useSurveyor = () => {
     const {user} = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
-    const { data: users = [], refetch, status } = useQuery({
+    const { data: users = [], isPending: isSurveyorLoading } = useQuery({
         queryKey: ['users', user?.email],
         queryFn: async () => {
             const res = await axiosPublic.get('/users');
@@ -16,7 +16,7 @@ const useSurveyor = () => {
     });
     const currentUser = users.find((data) => data.email === user?.email);
     const isSurveyor = currentUser && currentUser.role === 'surveyor'
-    return  {isSurveyor, loading: status === 'loading', error: status === 'error' }
+    return  {isSurveyor, isSurveyorLoading  }
 };
 
 export default useSurveyor;
