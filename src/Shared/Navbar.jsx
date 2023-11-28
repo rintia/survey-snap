@@ -24,7 +24,7 @@ const Navbar = () => {
               textDecoration: isActive ? 'underline' : 'none',
               fontWeight : isActive ? 'bold' : 'normal',
               background: isActive ? 'transparent' : 'transparent'
-              })} to='/postedJobs'>My Posted Jobs</NavLink></li>
+              })} to='/dashboard'>Dashboard</NavLink></li>
       <li><NavLink style={({ isActive }) => ({
               color: isActive ? "#4F4A45" : 'black',
               textDecoration: isActive ? 'underline' : 'none',

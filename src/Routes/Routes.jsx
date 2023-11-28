@@ -5,6 +5,8 @@ import AllSurveys from "../Layout/Pages/AllSurveys/AllSurveys";
 import SurveyDetail from "../Layout/Pages/SurveyDetails/SurveyDetail";
 import Login from "../Login/Login";
 import Register from "../Layout/Pages/Register/Register";
+import Dashboard from "../Layout/Dashboard";
+import AddSurvey from "../Layout/Pages/Dashboard/AddSurvey";
 
 const router = createBrowserRouter([
     {
@@ -32,8 +34,18 @@ const router = createBrowserRouter([
           path: '/register',
           element: <Register></Register>
         }
-      ]
+      ],
     },
+    {
+      path: '/dashboard',
+      element: <Dashboard></Dashboard>,
+      children: [
+        {
+          path: '/dashboard/addSurvey',
+          element: <AddSurvey></AddSurvey>
+        }
+      ]
+    }
   ]);
 
 
