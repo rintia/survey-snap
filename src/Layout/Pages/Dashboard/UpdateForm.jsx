@@ -7,6 +7,7 @@ const UpdateForm = () => {
     const survey = useLoaderData();
     const {_id,  title, description, question } = survey;
     console.log(description);
+    const axiosPublic = useAxiosPublic();
 
     const handleUpdateSurvey = e => {
         e.preventDefault();
@@ -21,7 +22,7 @@ const UpdateForm = () => {
 
         const updatedSurvey = { title, question, description }
 
-        axios.put(`http://localhost:5000/surveys/${_id}`, updatedSurvey)
+        axiosPublic.put(`/surveys/${_id}`, updatedSurvey)
             .then(response => {
                 console.log(response.data);
                 if (response.data.modifiedCount > 0) {

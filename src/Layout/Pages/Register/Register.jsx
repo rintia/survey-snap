@@ -4,11 +4,14 @@ import {  toast } from "react-toastify";
 import { updateProfile } from "firebase/auth";
 import { FcGoogle } from 'react-icons/fc';
 import { AuthContext } from "../../../Providers/AuthProvider";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 
 const Register = () => {
     const {createUser, signInWithGoogle} = useContext(AuthContext);
     const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
    
     
     const handleGoogleSignIn = () => {
@@ -47,17 +50,25 @@ const Register = () => {
                 displayName: name,
                 photoURL: photo
               })
-              .then(() =>
-              location.reload(),
-              navigate('/'),
-              toast.success('Registered Successfully')
-              
-          )
-              .catch(error => console.error(error))
-            
-        })
-        .catch(error=> 
-            console.log(error))
+              .then(() => {
+                // create user entry in the database
+                const userInfo = {
+                    name: name,
+                    email: email
+                }
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        if (res.data.insertedId) {
+                            console.log('user added to the database')
+                            navigate('/');
+                            toast.success('Registered Successfully')
+                        }
+                    })
+
+
+            })
+            .catch(error => console.log(error))
+    })
 
     }
     return (

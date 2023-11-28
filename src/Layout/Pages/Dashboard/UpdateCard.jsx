@@ -8,10 +8,12 @@ const UpdateCard = ({survey}) => {
  
         <div className='rounded-br-full h-full  bg-white'> 
         <div className="card-body text-center">
+          <div className='h-full'>
           <h2 className="card-title text-[#61B15A]  text-center">{title}</h2>
           <p ><span className='font-semibold'>Category:</span> {category}</p>
           <p>{description}</p>
           <p><span className='font-semibold'>Total Voted:</span> {survey.totalVoted || 0}</p>
+          </div>
           <div className="card-actions justify-stary">
            <Link to={`/dashboard/updateSurvey/form/${_id}`}><button className='btn btn-outline text-[#61B15A]'>Update</button></Link>
           </div>
