@@ -1,6 +1,6 @@
 
 import { Link, NavLink, Outlet } from "react-router-dom";
-import { MdOutlineAddToPhotos,  MdOutlineSystemUpdateAlt } from "react-icons/md";
+import { MdOutlineAddToPhotos,  MdOutlineSystemUpdateAlt,  MdOutlinePublishedWithChanges } from "react-icons/md";
 import { FaUsers, FaChartPie, FaHome, FaList } from "react-icons/fa";
 
 import useAdmin from "../hooks/useAdmin";
@@ -38,6 +38,8 @@ const Dashboard = () => {
                             Responses
                         </NavLink>
                     </li>
+                    
+
                     </>
                     : isAdmin ?
                     <>
@@ -51,6 +53,12 @@ const Dashboard = () => {
                     <NavLink to='/dashboard/responses'>
                         <FaChartPie></FaChartPie>
                             Responses
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/dashboard/unpublish'>
+                        <MdOutlinePublishedWithChanges></MdOutlinePublishedWithChanges>
+                           Publish/Unpublish
                         </NavLink>
                     </li>
                     </>
