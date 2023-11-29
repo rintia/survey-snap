@@ -69,7 +69,7 @@ const Dashboard = () => {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink>
+                    <NavLink to='/allSurveys'>
                         <FaList></FaList>
                         All Surveys
                     </NavLink>

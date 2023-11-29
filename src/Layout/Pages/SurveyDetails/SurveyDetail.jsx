@@ -5,6 +5,8 @@ import { Link, useLoaderData } from 'react-router-dom';
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import Statistics from "./Statistics";
+import useAdmin from "../../../hooks/useAdmin";
+import useSurveyor from "../../../hooks/useSurveyor";
 
 const SurveyDetail = () => {
     const [totalVoted, setTotalVoted] = useState(0);
@@ -13,8 +15,11 @@ const SurveyDetail = () => {
     const [yesVoted, setYesVoted] = useState(0);
     const [noVoted, setNoVoted] = useState(0);
     const [voters, setVoters] = useState([]);
+    const [votersNames, setVotersNames] = useState([]);
     const survey = useLoaderData();
-    const axiosPublic = useAxiosPublic()
+    const axiosPublic = useAxiosPublic();
+    const {isAdmin} = useAdmin();
+    const {isSurveyor} = useSurveyor();
     
     const{user} = useContext(AuthContext);
     const { _id, title, category, description, question } = survey;
@@ -34,6 +39,7 @@ const SurveyDetail = () => {
                 setLikes(surveys.likes || 0);
                 setDislikes(surveys.dislikes || 0);
                 setVoters(surveys.voters || [])
+                setVotersNames(surveys.votersNames || [])
             } catch (error) {
                 console.error('Error fetching survey data:', error.message);
             }
@@ -48,6 +54,7 @@ const SurveyDetail = () => {
         setTotalVoted(totalVoted + 1);
         setYesVoted(yesVoted + 1);
         setVoters([...voters, user?.email]);
+        setVotersNames([...votersNames, user?.displayName]);
         console.log(totalVoted);
         console.log(voters);
         try {
@@ -58,6 +65,7 @@ const SurveyDetail = () => {
                 likes: likes,
                 dislikes: dislikes,
                 voters: [...voters, user.email],
+                votersNames: [...votersNames, user.displayName],
 
             });
         } catch (error) {
@@ -69,6 +77,7 @@ const SurveyDetail = () => {
         setTotalVoted(totalVoted + 1);
         setNoVoted(noVoted + 1);
         setVoters([...voters, user?.email]);
+        setVotersNames([...votersNames, user?.displayName]);
         console.log(totalVoted);
         try {
             await axiosPublic.patch(`surveys/${_id}`, {
@@ -78,6 +87,7 @@ const SurveyDetail = () => {
                 likes: likes,
                 dislikes: dislikes,
                 voters : [...voters, user.email],
+                votersNames : [...votersNames, user.displayName],
             });
         } catch (error) {
             console.error('Error updating survey data:', error.message);
@@ -123,9 +133,16 @@ const SurveyDetail = () => {
                 <div className="text-center mt-12 text-2xl"> <h1>You are not logged in.
                      <Link to='/login'> <button className="btn btn-link text-2xl">Log In Now To Vote</button></Link>
                 </h1>
-                  </div>}
+                  </div>
+                 
+                  }
                   {
-                    voters.includes(user?.email) ? <h1 className="text-center mt-12 font-semibold text-2xl">Already Voted</h1>
+                    voters.includes(user?.email) ? 
+                    <h1 className="text-center mt-12 font-semibold text-2xl">Already Voted</h1>
+                    : isAdmin ?
+                    <p className="text-center mt-12 font-semibold text-2xl">You are an admin. You can't vote</p>
+                    : isSurveyor ?
+                    <p className="text-center mt-12 font-semibold text-2xl">You are a surveyor. You can't vote</p>
                     : <></>
                   }
             <div className='mt-12 border-2 p-4'>
@@ -140,8 +157,8 @@ const SurveyDetail = () => {
                     <h1 className='text-2xl md:text-3xl lg:text-5xl '>Q: {question}</h1>
                 </div>
                 <div className='space-y-6 mt-12 flex flex-col justify-center text-white'>
-                    <button disabled={!user || voters.includes(user?.email)}  onClick={handleYesVote} className="btn w-full h-16 text-3xl text-white hover:text-black bg-[#61B15A]">YES</button>
-                    <button disabled={!user || voters.includes(user?.email)} onClick={handleNoVote}  className="btn w-full text-3xl h-16 text-white hover:text-black bg-[#0066b2]">NO</button>
+                    <button disabled={!user || voters.includes(user?.email) || isAdmin || isSurveyor}  onClick={handleYesVote} className="btn w-full h-16 text-3xl text-white hover:text-black bg-[#61B15A]">YES</button>
+                    <button disabled={!user || voters.includes(user?.email) || isAdmin || isSurveyor} onClick={handleNoVote}  className="btn w-full text-3xl h-16 text-white hover:text-black bg-[#0066b2]">NO</button>
                 </div>
             </div>
             <div className='mt-4 flex justify-between'>

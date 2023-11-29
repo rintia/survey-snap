@@ -30,13 +30,7 @@ const Navbar = () => {
               textDecoration: isActive ? 'underline' : 'none',
               fontWeight : isActive ? 'bold' : 'normal',
               background: isActive ? 'transparent' : 'transparent'
-              })} to='/myBids'>My Bids</NavLink></li>
-      <li><NavLink style={({ isActive }) => ({
-              color: isActive ? "#4F4A45" : 'black',
-              textDecoration: isActive ? 'underline' : 'none',
-              fontWeight : isActive ? 'bold' : 'normal',
-              background: isActive ? 'transparent' : 'transparent'
-              })} to='/bidRequests'>Bid Requests</NavLink></li>
+              })} to='/myBids'>Become Pro-User</NavLink></li>
       </>
       const handleLogOut =() => {
         logOut()
