@@ -2,6 +2,7 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { MdOutlineAddToPhotos,  MdOutlineSystemUpdateAlt,  MdOutlinePublishedWithChanges } from "react-icons/md";
 import { FaUsers, FaChartPie, FaHome, FaList } from "react-icons/fa";
+import { VscFeedback } from "react-icons/vsc"
 
 import useAdmin from "../hooks/useAdmin";
 import useSurveyor from "../hooks/useSurveyor";
@@ -36,6 +37,12 @@ const Dashboard = () => {
                         <NavLink to='/dashboard/responses'>
                         <FaChartPie></FaChartPie>
                             Responses
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/dashboard/feedbacks'>
+                        <VscFeedback></VscFeedback>
+                           Feedbacks
                         </NavLink>
                     </li>
                     
