@@ -1,7 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
-import axios from "axios";
 
 const UpdateForm = () => {
     const survey = useLoaderData();

@@ -14,6 +14,8 @@ import Responses from "../Layout/Pages/Dashboard/Admin/Responses";
 import AdminRoute from "./AdminRoute";
 import SurveyorRoute from "./SurveyorRoute";
 import PrivateRoute from "./PrivateRoute";
+import ResponseTable from "../Layout/Pages/Dashboard/Admin/ResponseTable";
+import SharedRoute from "./SharedRoute";
 
 const router = createBrowserRouter([
     {
@@ -66,7 +68,12 @@ const router = createBrowserRouter([
         },
         {
           path: '/dashboard/responses',
-          element: <Responses></Responses>
+          element: <SharedRoute><Responses></Responses></SharedRoute>
+        },
+        {
+          path: '/dashboard/response/:id',
+          element:<ResponseTable></ResponseTable>,
+          loader: ({params}) => fetch(`http://localhost:5000/surveys/${params.id}`)
         }
       ]
     }
