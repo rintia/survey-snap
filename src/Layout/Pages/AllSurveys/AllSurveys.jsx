@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import SurveyCard from './SurveyCard';
 
 const AllSurveys = () => {
-    let surveys = []
+    const [surveys, setSurveys] = useState([]);
     const [selectedFilter, setSelectedFilter] = useState('');
     const axiosPublic = useAxiosPublic();
     const { data: initialSurveys = [], refetch } = useQuery({
@@ -15,7 +15,9 @@ const AllSurveys = () => {
             
         }
     });
-    surveys = initialSurveys;
+    useEffect(() => {
+        setSurveys(initialSurveys);
+    }, [initialSurveys]);
 
     const handleFilterChange = (e) => {
         const selectedValue = e.target.value;
@@ -39,24 +41,24 @@ const AllSurveys = () => {
       };
     
    const handleTitleSelect = () =>{
-       const sorted = surveys.sort((a, b) => {
+       const sorted = [...surveys].sort((a, b) => {
         return a.title.localeCompare(b.title);
     });
-    surveys =sorted
+    setSurveys(sorted)
    }
    const  handleCategorySelect = () =>{
-       const sorted = surveys.sort((a, b) => {
+       const sorted = [...surveys].sort((a, b) => {
         return a.category.localeCompare(b.category);
     });
-    surveys =sorted
+    setSurveys(sorted)
    }
    const  handleTotalVoteSelect = () =>{
-    const sorted = surveys.sort((a, b) => {
+    const sorted = [...surveys].sort((a, b) => {
     const totalVotedA = a?.totalVoted || 0; 
     const totalVotedB = b?.totalVoted || 0; 
     return totalVotedB - totalVotedA;
     });
-    surveys =sorted
+   setSurveys(sorted)
    }
     return (
         <div>
