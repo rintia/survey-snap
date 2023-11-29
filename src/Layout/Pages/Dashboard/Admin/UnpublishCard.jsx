@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import useAxiosPublic from '../../../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 
 const UnpublishCard = ({survey}) => {
     const{_id, title, category, description, } = survey;
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure
     const [adminFeedback, setAdminFeedback]=  useState([])
     const { data: surveys = [], refetch } = useQuery({
         queryKey: ['surveys'],
         queryFn: async () => {
-            const res = await axiosPublic.get('/surveys');
+            const res = await axiosSecure.get('/surveys');
             return res.data;
             
         }

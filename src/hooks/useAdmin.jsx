@@ -2,14 +2,15 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../Providers/AuthProvider';
 import useAxiosPublic from './useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
+import useAxiosSecure from './useAxiosSecure';
 
 const useAdmin = () => {
     const {user} = useContext(AuthContext);
-    const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
     const { data: users = [], isPending: isAdminLoading } = useQuery({
         queryKey: ['users', user?.email],
         queryFn: async () => {
-            const res = await axiosPublic.get('/users');
+            const res = await axiosSecure.get('/users');
             return res.data;
         }
     });

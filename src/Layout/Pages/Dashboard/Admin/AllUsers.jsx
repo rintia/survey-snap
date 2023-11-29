@@ -4,15 +4,17 @@ import { useQuery } from '@tanstack/react-query';
 import { GrUserAdmin } from "react-icons/gr";
 import { RiSurveyLine } from "react-icons/ri";
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 
 const AllUsers = () => {
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
     const [selectedFilter, setSelectedFilter] = useState('');
     const [filteredUsers, setFilteredUsers] = useState([]);
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await axiosPublic.get('/users');
+            const res = await axiosSecure.get('/users');
             return res.data;
         }
     });

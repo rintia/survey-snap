@@ -1,13 +1,15 @@
 import React from 'react';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const Feedback = () => {
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure()
     const { data: surveys = [], refetch } = useQuery({
         queryKey: ['surveys'],
         queryFn: async () => {
-            const res = await axiosPublic.get('/surveys');
+            const res = await axiosSecure.get('/surveys');
             return res.data;
         }
     });
