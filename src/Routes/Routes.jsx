@@ -18,6 +18,7 @@ import ResponseTable from "../Layout/Pages/Dashboard/Admin/ResponseTable";
 import SharedRoute from "./SharedRoute";
 import Unpublish from "../Layout/Pages/Dashboard/Admin/Unpublish";
 import Feedback from "../Layout/Pages/Dashboard/Feedback";
+import Payment from "../Layout/Pages/Payment/Payment";
 
 const router = createBrowserRouter([
     {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
         {
           path: '/register',
           element: <Register></Register>
+        },
+        {
+          path: '/payment',
+          element: <Payment></Payment>
         }
       ],
     },

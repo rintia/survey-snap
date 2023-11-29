@@ -30,7 +30,7 @@ const Navbar = () => {
               textDecoration: isActive ? 'underline' : 'none',
               fontWeight : isActive ? 'bold' : 'normal',
               background: isActive ? 'transparent' : 'transparent'
-              })} to='/myBids'>Become Pro-User</NavLink></li>
+              })} to='/payment'>Become Pro-User</NavLink></li>
       </>
       const handleLogOut =() => {
         logOut()
