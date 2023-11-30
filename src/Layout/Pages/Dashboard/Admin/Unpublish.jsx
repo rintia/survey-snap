@@ -6,11 +6,10 @@ import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 
 const Unpublish = () => {
     const axiosPublic = useAxiosPublic();
-    const axiosSecure = useAxiosSecure();
     const { data: surveys = [], refetch } = useQuery({
         queryKey: ['surveys'],
         queryFn: async () => {
-            const res = await axiosSecure.get('/surveys');
+            const res = await axiosPublic.get('/surveys');
             return res.data;
             
         }

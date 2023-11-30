@@ -276,7 +276,7 @@ const SurveyDetail = () => {
             <h1 className="text-center font-semibold my-12 text-4xl py-8 border-b-2 border-b-green-300">Comments</h1>
             <div className=" mb-8 bg-green-300">
                 {
-                    survey.comments ?
+                    comments.length > 0 ?
                         <div>
                            
                             <div className="overflow-x-auto">
@@ -287,7 +287,7 @@ const SurveyDetail = () => {
                                         {/* row 1 */}
                                        
                                        {
-                                        survey.comments.map(comment =>  <tr>
+                                        comments.map(comment =>  <tr>
                                             
                                             <td key={comment._id} className="w-1/6">
                                                 <div className="flex items-center gap-3">

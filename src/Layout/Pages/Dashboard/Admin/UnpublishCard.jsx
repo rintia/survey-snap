@@ -1,28 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useAxiosPublic from '../../../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
-import useAxiosSecure from '../../../../hooks/useAxiosSecure';
+
 
 const UnpublishCard = ({survey}) => {
     const{_id, title, category, description, } = survey;
     const axiosPublic = useAxiosPublic();
-    const axiosSecure = useAxiosSecure
-    const [adminFeedback, setAdminFeedback]=  useState([])
-    const { data: surveys = [], refetch } = useQuery({
-        queryKey: ['surveys'],
+    const [adminFeedback, setAdminFeedback]=  useState([]);
+   
+    const { data: surveys = {}, refetch } = useQuery({
+        queryKey: ['surveys', _id],
         queryFn: async () => {
-            const res = await axiosSecure.get('/surveys');
+            const res = await axiosPublic.get(`/surveys/${_id}`);
             return res.data;
             
         }
     });
+
+
     const handlePublish =async () => {
         try {
             await axiosPublic.patch(`surveys/${_id}`, {
                 status: 'published'
             });
-            refetch(); 
+            refetch();
+           
             Swal.fire({
                 title: 'Success!',
                 text: 'Survey Published Successfully',
@@ -34,6 +37,7 @@ const UnpublishCard = ({survey}) => {
             console.error('Error publishing survey:', error.message);
             // Handle the error (e.g., show a notification to the user)
         }
+        console.log(surveys);
     }
 
     const handleUnPublish = async () => {
@@ -58,6 +62,7 @@ const UnpublishCard = ({survey}) => {
         
                     });
                     refetch();
+                    
                 } catch (error) {
                     console.error('Error updating survey data:', error.message);
                 }
@@ -68,6 +73,8 @@ const UnpublishCard = ({survey}) => {
                 });
             }
         });
+
+        console.log(status);
 
     }
 
@@ -83,9 +90,9 @@ const UnpublishCard = ({survey}) => {
           <p><span className='font-semibold'>Total Voted:</span> {survey.totalVoted || 0}</p>
           </div>
           {
-            survey.status === 'published' ?
+            surveys.status === 'published' ?
             <h1 className='text-centet font-semibold text-2xl shadow-md border-2 p-2'>Survey Published</h1>
-            : survey.status === 'unpublish'?
+            :surveys.status === 'unpublish'?
             <h1 className='text-centet font-semibold text-2xl shadow-md border-2 p-2'>Survey Unpublished</h1>
             :
             <div className="card-actions justify-between">
