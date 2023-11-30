@@ -70,7 +70,7 @@ const AllUsers = () => {
             console.log(updatedUser, user);
 
 
-            axiosPublic.put(`/users/${user._id}`, updatedUser)
+            axiosSecure.put(`/users/${user._id}`, updatedUser)
             .then(response => {
                 console.log(response.data);
                 if (response.data.modifiedCount > 0) {
@@ -95,7 +95,7 @@ const AllUsers = () => {
             console.log(updatedUser, user);
 
 
-            axiosPublic.put(`/users/${user._id}`, updatedUser)
+            axiosSecure.put(`/users/${user._id}`, updatedUser)
             .then(response => {
                 console.log(response.data);
                 if (response.data.modifiedCount > 0) {

@@ -7,7 +7,7 @@ const ResponseTable = () => {
     const survey = useLoaderData();
     const { title, voters, totalVoted, yesVoted } = survey;
 
-    const formattedTime = moment(voters?.timeVoted).format('MMMM Do YYYY, h:mm:ss a');
+   
     return (
         <div>
             <h1 className='text-center my-8 text-[#61B15A] text-4xl'>{title}</h1>
@@ -33,7 +33,7 @@ const ResponseTable = () => {
                                             <th>{index + 1}</th>
                                             <th>{voter.name}</th>
                                             <td>{voter.email}</td>
-                                            <td>{formattedTime}</td>
+                                            <td>{moment(voter.timeVoted).format('MMMM Do YYYY, h:mm:ss a')}</td>
                                             <td>{voter.voted}</td>
                                         </tr>)
                                     }

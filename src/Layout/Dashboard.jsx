@@ -1,6 +1,6 @@
 
 import { Link, NavLink, Outlet } from "react-router-dom";
-import { MdOutlineAddToPhotos,  MdOutlineSystemUpdateAlt,  MdOutlinePublishedWithChanges } from "react-icons/md";
+import { MdOutlineAddToPhotos,  MdOutlineSystemUpdateAlt,MdOutlinePayment,  MdOutlinePublishedWithChanges } from "react-icons/md";
 import { FaUsers, FaChartPie, FaHome, FaList } from "react-icons/fa";
 import { VscFeedback } from "react-icons/vsc"
 
@@ -68,6 +68,12 @@ const Dashboard = () => {
                         <NavLink to='/dashboard/unpublish'>
                         <MdOutlinePublishedWithChanges></MdOutlinePublishedWithChanges>
                            Publish/Unpublish
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/dashboard/payments'>
+                        <MdOutlinePayment></MdOutlinePayment>
+                           Payment History
                         </NavLink>
                     </li>
                     </>

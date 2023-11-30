@@ -57,6 +57,7 @@ const SurveyDetail = () => {
     }, [_id]);
 
     const handleComment = async (e) => {
+        e.preventDefault();
         const form = e.target;
         const comment = form.comment.value;
 

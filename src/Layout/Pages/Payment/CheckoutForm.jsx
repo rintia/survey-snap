@@ -17,7 +17,7 @@ const CheckOutForm = () => {
     const {user} = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const totalPrice = 200;
+    
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
@@ -30,14 +30,16 @@ const CheckOutForm = () => {
     console.log(currentUser);
     // const {_id} = currentUser;
 
+    const totalPrice = 200;
+
     useEffect(() => {
-        if (totalPrice > 0) {
+        
             axiosSecure.post('/create-payment-intent', { price: totalPrice })
                 .then(res => {
                     console.log(res.data.clientSecret);
                     setClientSecret(res.data.clientSecret);
                 })
-        }
+        
 
     }, [axiosSecure, totalPrice])
 

@@ -19,6 +19,7 @@ import SharedRoute from "./SharedRoute";
 import Unpublish from "../Layout/Pages/Dashboard/Admin/Unpublish";
 import Feedback from "../Layout/Pages/Dashboard/Feedback";
 import Payment from "../Layout/Pages/Payment/Payment";
+import PaymentHistory from "../Layout/Pages/Dashboard/Admin/PaymentHistory";
 
 const router = createBrowserRouter([
     {
@@ -85,6 +86,11 @@ const router = createBrowserRouter([
         {
           path: '/dashboard/unpublish',
           element: <AdminRoute><Unpublish></Unpublish></AdminRoute>
+        },
+        {
+          path: '/dashboard/payments',
+          element: <AdminRoute><PaymentHistory></PaymentHistory></AdminRoute>
+
         },
         {
           path: '/dashboard/feedbacks',
