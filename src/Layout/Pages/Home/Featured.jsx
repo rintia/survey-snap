@@ -15,7 +15,7 @@ const Featured = () => {
     const sorted = [...surveys].sort((a, b) => {
         const totalVotedA = a?.totalVoted || 0; 
     const totalVotedB = b?.totalVoted || 0; 
-    console.log(totalVotedA);
+   
 
     return totalVotedB - totalVotedA;
     });

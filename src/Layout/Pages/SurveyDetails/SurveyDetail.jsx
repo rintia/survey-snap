@@ -10,6 +10,7 @@ import useSurveyor from "../../../hooks/useSurveyor";
 import { v4 as uuidv4 } from 'uuid';
 import moment from "moment";
 import Swal from "sweetalert2";
+import useProUser from "../../../hooks/useProUser";
 
 const SurveyDetail = () => {
     const [totalVoted, setTotalVoted] = useState(0);
@@ -19,11 +20,13 @@ const SurveyDetail = () => {
     const [noVoted, setNoVoted] = useState(0);
     const [votersEmails, setVotersEmails] = useState([]);
     const [voters, setVoters] = useState([]);
+    const [comments, setComments] = useState([]);
     const [userFeedback, setUserFeedback] = useState([]);
     const survey = useLoaderData();
     const axiosPublic = useAxiosPublic();
     const { isAdmin } = useAdmin();
     const { isSurveyor } = useSurveyor();
+    const {isProUser} = useProUser();
 
     const { user } = useContext(AuthContext);
     const { _id, title, category, description, question } = survey;
@@ -43,6 +46,7 @@ const SurveyDetail = () => {
                 setDislikes(surveys.dislikes || 0);
                 setVotersEmails(surveys.votersEmails || []);
                 setVoters(surveys.voters || []);
+                setComments(surveys.comments || []);
                 setUserFeedback(survey.userFeedback || []);
             } catch (error) {
                 console.error('Error fetching survey data:', error.message);
@@ -52,7 +56,31 @@ const SurveyDetail = () => {
         fetchSurveyData();
     }, [_id]);
 
-    const handleReport = async() => {
+    const handleComment = async (e) => {
+        const form = e.target;
+        const comment = form.comment.value;
+
+        // Create a new comment object
+        const newComment = {
+            id: uuidv4(),
+            name: user?.displayName,
+            photo: user?.photoURL,
+            comment: comment
+        };
+
+        setComments(prevComments => [...prevComments, newComment]);
+
+        try {
+            await axiosPublic.patch(`surveys/${_id}`, {
+                comments: [...comments, newComment],
+
+            });
+        } catch (error) {
+            console.error('Error updating survey data:', error.message);
+        }
+    }
+
+    const handleReport = async () => {
 
         Swal.fire({
             title: "Are you sure you want to report?",
@@ -63,7 +91,7 @@ const SurveyDetail = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, report it!"
-        }).then(async(result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 const reportReason = result.value || "No reason provided";
                 setUserFeedback([...userFeedback, reportReason])
@@ -71,7 +99,7 @@ const SurveyDetail = () => {
                 try {
                     await axiosPublic.patch(`surveys/${_id}`, {
                         userFeedback: [...userFeedback, reportReason]
-        
+
                     });
                 } catch (error) {
                     console.error('Error updating survey data:', error.message);
@@ -194,6 +222,7 @@ const SurveyDetail = () => {
     }
 
 
+
     return (
         <div>
             {user?.email ?
@@ -242,6 +271,70 @@ const SurveyDetail = () => {
                     </div>
                 </div>
                 <h1>Total Voted:{totalVoted}</h1>
+            </div>
+            <h1 className="text-center font-semibold my-12 text-4xl py-8 border-b-2 border-b-green-300">Comments</h1>
+            <div className=" mb-8 bg-green-300">
+                {
+                    survey.comments ?
+                        <div>
+                           
+                            <div className="overflow-x-auto">
+                                <table className="table">
+                                    {/* head */}
+                                    
+                                    <tbody>
+                                        {/* row 1 */}
+                                       
+                                       {
+                                        survey.comments.map(comment =>  <tr>
+                                            
+                                            <td key={comment._id} className="w-1/6">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="avatar">
+                                                        <div className="mask mask-squircle w-12 h-12">
+                                                            <img className="rounded-full" src={comment.photo} />
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div className="font-bold">{comment.name} :</div>
+                                                      
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="text-start">
+                                                {comment.comment}
+                                            </td>
+                                            
+                                        </tr>)
+                                       }
+                                    
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        :
+                        <div className="p-2">
+                            <h1 className="text-center font-semibold ">No Comment Yet</h1>
+                        </div>
+                }
+
+            </div>
+            <div>
+                <form onSubmit={handleComment} className="mt-12">
+                    <div className="mb-8">
+                        <div className="flex gap-2 items-center">
+                            <div className="form-control flex-1">
+
+                                <label className="input-group">
+                                    <input type="text" name="comment" placeholder="Add Comment" className="input input-bordered w-full" />
+                                </label>
+                            </div>
+                            <button disabled={!isProUser} className="btn btn-sm  bg-yellow-800 text-white">Comment</button>
+
+                        </div>
+
+                    </div>
+                </form>
             </div>
             <div className="mt-12">
 

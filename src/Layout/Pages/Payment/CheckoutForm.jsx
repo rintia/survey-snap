@@ -5,6 +5,7 @@ import { AuthContext } from '../../../Providers/AuthProvider';
 import moment from 'moment';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const CheckOutForm = () => {
     const stripe = useStripe();
@@ -13,7 +14,8 @@ const CheckOutForm = () => {
     const [clientSecret, setClientSecret] = useState('');
     const axiosSecure = useAxiosSecure();
     const elements = useElements();
-    const {user} = useContext(AuthContext)
+    const {user} = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const totalPrice = 200;
     const { data: users = [], refetch } = useQuery({
@@ -26,7 +28,7 @@ const CheckOutForm = () => {
 
     const currentUser = users.find(userdb => userdb.email === user.email);
     console.log(currentUser);
-    const {_id} = currentUser;
+    // const {_id} = currentUser;
 
     useEffect(() => {
         if (totalPrice > 0) {
@@ -105,7 +107,7 @@ const CheckOutForm = () => {
                     
                 }
 
-                const res = await axiosSecure.post(`/payments/${_id}`, payment);
+                const res = await axiosSecure.post(`/payments/${currentUser._id}`, payment);
                 console.log('payment saved', res.data);
 
                 refetch();

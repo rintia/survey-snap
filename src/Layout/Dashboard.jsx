@@ -6,11 +6,13 @@ import { VscFeedback } from "react-icons/vsc"
 
 import useAdmin from "../hooks/useAdmin";
 import useSurveyor from "../hooks/useSurveyor";
+import useProUser from "../hooks/useProUser";
 
 const Dashboard = () => {
 
    const {isAdmin} = useAdmin();
    const {isSurveyor} = useSurveyor();
+   const {isProUser} = useProUser();
    console.log(isAdmin, isSurveyor);
     return (
         <div className="flex">
@@ -69,10 +71,14 @@ const Dashboard = () => {
                         </NavLink>
                     </li>
                     </>
+                    : isProUser ?
+                    <></>
                     :
                     <>
                     <li>
+                       <NavLink to='/payment'>
                        Become A Pro-User
+                       </NavLink>
                     </li>
                     </>
                 }
