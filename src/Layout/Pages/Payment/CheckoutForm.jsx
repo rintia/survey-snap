@@ -6,6 +6,9 @@ import moment from 'moment';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import useProUser from '../../../hooks/useProUser';
+import useAdmin from '../../../hooks/useAdmin';
+import useSurveyor from '../../../hooks/useSurveyor';
 
 const CheckOutForm = () => {
     const stripe = useStripe();
@@ -16,6 +19,9 @@ const CheckOutForm = () => {
     const elements = useElements();
     const {user} = useContext(AuthContext);
     const navigate = useNavigate();
+    const {isProUser} = useProUser();
+    const {isAdmin} = useAdmin();
+    const {isSurveyor} = useSurveyor();
 
     
     const { data: users = [], refetch } = useQuery({
@@ -114,13 +120,12 @@ const CheckOutForm = () => {
 
                 refetch();
                 if (res.data?.paymentResult?.insertedId) {
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: "Thank you for the payment.",
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
+                  Swal.fire({
+                    title: 'Success!',
+                    text: 'Payment Done Successfully',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                });
                     navigate('/')
                    
                 }
@@ -149,7 +154,7 @@ const CheckOutForm = () => {
         }}
       />
       <div className='flex justify-center mt-12'>
-      <button className='bg-green-400 btn text-2xl text-blue-900  ' type="submit"  disabled={!stripe || !clientSecret}>
+      <button className='bg-green-400 btn text-2xl text-blue-900  ' type="submit"  disabled={!stripe || !clientSecret || isAdmin || isProUser || isSurveyor}>
         Pay Now
       </button>
      

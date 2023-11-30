@@ -4,22 +4,37 @@ import {  toast } from "react-toastify";
 import { updateProfile } from "firebase/auth";
 import { FcGoogle } from 'react-icons/fc';
 import { AuthContext } from "../../../Providers/AuthProvider";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
+
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+
 
 
 const Register = () => {
     const {createUser, signInWithGoogle} = useContext(AuthContext);
     const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
    
     
     const handleGoogleSignIn = () => {
         signInWithGoogle()
-        .then(() => {
-          navigate('/'),
-          toast.success('Sign in Successful')
+        .then(result => {
+           // create user entry in the database
+           const userInfo = {
+            email: result.user?.email,
+            name: result.user?.displayName,
+            role: 'user'
+        }
+        axiosPublic.post('/users', userInfo)
+            .then(res => {
+                if (res.data.insertedId) {
+                    console.log('user added to the database')
+                    navigate('/');
+                    toast.success('Registered Successfully')
+                }
+            })
         })
         .catch(error => console.error(error))
       }
@@ -58,7 +73,7 @@ const Register = () => {
                     email: email,
                     role: 'user'
                 }
-                axiosSecure.post('/users', userInfo)
+                axiosPublic.post('/users', userInfo)
                     .then(res => {
                         if (res.data.insertedId) {
                             console.log('user added to the database')

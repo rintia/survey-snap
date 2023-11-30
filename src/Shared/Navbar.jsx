@@ -8,6 +8,8 @@ import useSurveyor from '../hooks/useSurveyor';
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
  
+
+ 
   console.log(user);
   const navLinks = <>
     <li > <NavLink style={({ isActive }) => ({
@@ -23,12 +25,14 @@ const Navbar = () => {
       fontWeight: isActive ? 'bold' : 'normal',
       background: isActive ? 'transparent' : 'transparent'
     })} to='/allSurveys'>All Surveys</NavLink></li>
-    <li><NavLink style={({ isActive }) => ({
-        color: isActive ? "#4F4A45" : 'black',
-        textDecoration: isActive ? 'underline' : 'none',
-        fontWeight: isActive ? 'bold' : 'normal',
-        background: isActive ? 'transparent' : 'transparent'
-      })} to='/dashboard'>Dashboard</NavLink></li>
+   
+   <li><NavLink style={({ isActive }) => ({
+      color: isActive ? "#4F4A45" : 'black',
+      textDecoration: isActive ? 'underline' : 'none',
+      fontWeight: isActive ? 'bold' : 'normal',
+      background: isActive ? 'transparent' : 'transparent'
+    })} to='/dashboard'>Dashboard</NavLink></li>
+
    
    <li><NavLink style={({ isActive }) => ({
         color: isActive ? "#4F4A45" : 'black',
