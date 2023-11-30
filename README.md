@@ -1,8 +1,8 @@
-# React + Vite
+live link: https://6568968cafd07108e5a74eb1--charming-croquembouche-93153f.netlify.app/
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Website Features:
+1. Logged in users can vote , like/dislike and report a survey
+2. In the navbar a use can see the 'Become a pro-user' link. When clicked on it user can make necesssary payments to become a Pro-User
+3. A surveyor can add new survey
+4. Surveyoyr and Admin can see the responses of each survey in the dashboard
+5. Admin can change the roles of other user and make them 'admin' or 'surveyor'

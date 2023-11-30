@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         {
           path: '/surveyDetails/:id',
           element: <SurveyDetail></SurveyDetail>,
-          loader: ({params}) => fetch(`http://localhost:5000/surveys/${params.id}`)
+          loader: ({params}) => fetch(`https://survey-snap-server.vercel.app/surveys/${params.id}`)
         },
         {
           path: '/login',
@@ -68,7 +68,7 @@ const router = createBrowserRouter([
         {
           path: '/dashboard/updateSurvey/form/:id',
           element: <UpdateForm></UpdateForm>,
-          loader: ({params}) => fetch(`http://localhost:5000/surveys/${params.id}`)
+          loader: ({params}) => fetch(`https://survey-snap-server.vercel.app/surveys/${params.id}`)
         },
         {
           path: '/dashboard/allUsers',
@@ -81,7 +81,7 @@ const router = createBrowserRouter([
         {
           path: '/dashboard/response/:id',
           element:<SharedRoute><ResponseTable></ResponseTable></SharedRoute>,
-          loader: ({params}) => fetch(`http://localhost:5000/surveys/${params.id}`)
+          loader: ({params}) => fetch(`https://survey-snap-server.vercel.app/surveys/${params.id}`)
         },
         {
           path: '/dashboard/unpublish',

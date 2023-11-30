@@ -22,7 +22,7 @@ const AddSurvey = () => {
         const newSurvey = {title, category, question, description}
 
         console.log(newSurvey);
-        const url = 'http://localhost:5000/surveys'
+        const url = 'https://survey-snap-server.vercel.app/surveys'
 
         axios.post( url, newSurvey, {
             headers: {
