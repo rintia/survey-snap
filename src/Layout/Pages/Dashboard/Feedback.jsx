@@ -9,7 +9,7 @@ const Feedback = () => {
     const { data: surveys = [], refetch } = useQuery({
         queryKey: ['surveys'],
         queryFn: async () => {
-            const res = await axiosSecure.get('/surveys');
+            const res = await axiosPublic.get('/surveys');
             return res.data;
         }
     });
@@ -31,53 +31,57 @@ const Feedback = () => {
                         {/* row 1 */}
                         {
                             surveys.map((survey, index) => <tr key={survey._id} className="border-green-600">
-                                <th>{index + 1}</th>
-                                <td>{survey.title}</td>
-                                {
-                                    survey.userFeedback ?
-                                        <td><button onClick={() => document.getElementById('my_modal_1').showModal()} className='btn btn-sm bg-[#FFF76A]'>See Feedback</button>
-                                            <dialog id="my_modal_1" className="modal">
-                                                <div className="modal-box">
-                                                    <h3 className="font-bold text-lg text-center mb-4">Users Feedback</h3>
+                            <th>{index + 1}</th>
+                            <td>{survey.title}</td>
+                            {
+                                survey.userFeedback ?
+                                    <td><button onClick={() => document.getElementById(`my_modal_${index+1}`).showModal()} className='btn btn-sm bg-[#FFF76A]'>See Feedback</button>
+                                        <dialog id={`my_modal_${index+1}`} className="modal">
+                                            <div className="modal-box">
+                                                <h3 className="font-bold text-lg text-center mb-4">Users Feedback</h3>
 
-                                                    {survey.userFeedback.map((feedback, index) => (
-                                                        <li key={index}>{feedback}</li>
-                                                    ))}
+                                                {survey.userFeedback.map((feedback, idx) => (
+                                                    <li key={idx}>{feedback}</li>
+                                                ))}
 
-                                                    <div className="modal-action">
-                                                        <form method="dialog">
-                                                            {/* if there is a button in form, it will close the modal */}
-                                                            <button className="btn">Close</button>
-                                                        </form>
-                                                    </div>
+                                                <div className="modal-action">
+                                                    <form method="dialog">
+                                                        {/* if there is a button in form, it will close the modal */}
+                                                        <button className="btn">Close</button>
+                                                    </form>
                                                 </div>
-                                            </dialog>
-                                        </td>
-                                        : <td className='text-gray-600'>No Feedback</td>
-                                }
-                                {
-                                    survey.adminFeedback ?
-                                        <td><button onClick={() => document.getElementById('my_modal_2').showModal()} className='btn btn-sm bg-[#FFCE89]'>See Feedback</button>
-                                        <dialog id="my_modal_2" className="modal">
-                                                <div className="modal-box">
-                                                    <h3 className="font-bold text-lg text-center mb-4">Admin Feedback</h3>
+                                            </div>
+                                        </dialog>
+                                    </td>
+                                    : <td className='text-gray-600'>No Feedback</td>
+                            }
+                            {
+                                survey.adminFeedback ?
+                                    <td><button onClick={() => document.getElementById(`my_modal_${survey._id}`).showModal()} className='btn btn-sm bg-[#FFCE89]'>See Feedback</button>
+                                    <dialog id={`my_modal_${survey._id}`} className="modal">
+                                            <div className="modal-box">
+                                                <h3 className="font-bold text-lg text-center mb-4">Admin Feedback</h3>
 
-                                                    {survey.adminFeedback.map((feedback, index) => (
-                                                        <li key={index}>{feedback}</li>
-                                                    ))}
+                                                {survey.adminFeedback.map((feedback, index) => (
+                                                    <li key={index}>{feedback}</li>
+                                                ))}
 
-                                                    <div className="modal-action">
-                                                        <form method="dialog">
-                                                            {/* if there is a button in form, it will close the modal */}
-                                                            <button className="btn">Close</button>
-                                                        </form>
-                                                    </div>
+                                                <div className="modal-action">
+                                                    <form method="dialog">
+                                                        {/* if there is a button in form, it will close the modal */}
+                                                        <button className="btn">Close</button>
+                                                    </form>
                                                 </div>
-                                            </dialog>
-                                        </td>
-                                        : <td className='text-gray-800'>No Feedback</td>
-                                }
-                            </tr>)
+                                            </div>
+                                        </dialog>
+                                    </td>
+                                    : <td className='text-gray-800'>No Feedback</td>
+                            }
+                        </tr>)
+                               
+                               
+                                   
+
                         }
                     </tbody>
                 </table>
