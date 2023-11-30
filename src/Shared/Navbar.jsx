@@ -7,10 +7,7 @@ import useSurveyor from '../hooks/useSurveyor';
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  const { isProUser, isProUserLoading } = useProUser();
-  const { isAdmin, isAdminLoading } = useAdmin();
-  const { isSurveyor, isSurveyorLoading } = useSurveyor();
-  console.log(isProUser);
+ 
   console.log(user);
   const navLinks = <>
     <li > <NavLink style={({ isActive }) => ({
@@ -33,16 +30,12 @@ const Navbar = () => {
         background: isActive ? 'transparent' : 'transparent'
       })} to='/dashboard'>Dashboard</NavLink></li>
    
-    {
-      isProUser || isAdmin || isSurveyor ?
-      <></>
-      :  <li><NavLink style={({ isActive }) => ({
+   <li><NavLink style={({ isActive }) => ({
         color: isActive ? "#4F4A45" : 'black',
         textDecoration: isActive ? 'underline' : 'none',
         fontWeight: isActive ? 'bold' : 'normal',
         background: isActive ? 'transparent' : 'transparent'
       })} to='/payment'>Become Pro User</NavLink></li>
-    }
 
 
   </>
